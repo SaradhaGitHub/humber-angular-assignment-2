@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsData } from 'src/app/models/products-data.interface';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'cart-item',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartItemComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private servcPrd: ProductsService) { }
+  listeditems :any=[];
   ngOnInit(): void {
+    this.servcPrd.getItemsForCart().subscribe(res=>(this.listeditems=res))
   }
 
 }

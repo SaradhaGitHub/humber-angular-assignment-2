@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsData } from 'src/app/models/products-data.interface';
+
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'item',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private servcPrd: ProductsService) { }
+  
+   listedProducts :ProductsData[]=[];
+   pushItemtoCart(prod : any) {
+    this.servcPrd.pushItemstoCart(prod);
+    this.servcPrd.setItemsForCart(prod);
+  }
+  
   ngOnInit(): void {
+    this.servcPrd.getProducts().subscribe(res => {
+      this.listedProducts = res; });
   }
 
+
+ 
+  
 }
